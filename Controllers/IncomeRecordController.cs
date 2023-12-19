@@ -7,7 +7,7 @@ using Proyecto_ClubDeportes.ViewModels;
 
 namespace Proyecto_ClubDeportes.Controllers
 {
-    [Authorize(Roles = "Secretaria, Administrador")]
+    
     public class IncomeRecordController : Controller
     {
         private readonly IIncomeRecordService _incomeRecordService;
@@ -20,6 +20,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
         
         // GET: IncomeRecord/Index
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> Index(string filter)
         {
             var partnersDeb = await _incomeRecordService.GetAllDebtors(filter);
@@ -41,6 +42,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // GET: IncomeRecord/GetAllRecordsPayments
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> GetAllRecordsPayments(string filter)
         {
             var recordsPayment = await _incomeRecordService.GetAllPayments(filter);
@@ -62,6 +64,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
         
         // GET: IncomeRecord/RecordPayment
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> RecordPayment(int? id)
         {
             var partner = await _partnerService.GetById(id.Value);
@@ -94,6 +97,7 @@ namespace Proyecto_ClubDeportes.Controllers
         // POST: IncomeRecord/RecordPayment
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> RecordPayment(int id, IncomeRecordCreateVM partnerPayment)
         {
             if (ModelState.IsValid)
@@ -118,6 +122,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
         
         // GET: IncomeRecord/EditMembership
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> EditMembership()
         {
             var membershipValue = await _incomeRecordService.GetMembershipFee();
@@ -128,6 +133,7 @@ namespace Proyecto_ClubDeportes.Controllers
         // POST: IncomeRecord/EditMembership
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> EditMembership(Membership membership)
         {
             if (ModelState.IsValid)

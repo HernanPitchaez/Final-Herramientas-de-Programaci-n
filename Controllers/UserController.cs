@@ -9,7 +9,7 @@ using Proyecto_ClubDeportes.Controllers;
 
 namespace clase11.Controllers;
 
-[Authorize(Roles = "Secretaria")]
+[Authorize(Roles = "Secretaria, Administrador")]
 public class UsersController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -39,8 +39,8 @@ public class UsersController : Controller
         var user = await _userManager.FindByIdAsync(id);
         
         var userViewModel = new UserEditViewModel();
-        userViewModel.UserName = user.UserName ?? string.Empty;
-        userViewModel.Email = user.Email ?? string.Empty;
+        userViewModel.UserName = user?.UserName ?? string.Empty;
+        userViewModel.Email = user?.Email ?? string.Empty;
         userViewModel.Roles = new SelectList(_roleManager.Roles.ToList());
 
         return View(userViewModel);

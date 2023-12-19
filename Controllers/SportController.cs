@@ -7,7 +7,7 @@ using Proyecto_ClubDeportes.Services;
 
 namespace Proyecto_ClubDeportes.Controllers
 {
-    [Authorize(Roles = "Secretaria, Administrador, Socio")]
+    
     public class SportController : Controller
     {
         private readonly ISportService _sportService;
@@ -18,6 +18,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // GET: Sport
+        [Authorize(Roles = "Socio, Secretaria, Administrador")]
         public async Task<IActionResult> Index(string filter)
         {
             var sportList = await _sportService.GetAll(filter);
@@ -27,8 +28,8 @@ namespace Proyecto_ClubDeportes.Controllers
 
             return View(sportListVM);
         }
-        [Authorize]
         // GET: Sport/Details/5
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> Details(int? id)
         {
             var sport = await _sportService.GetById(id);
@@ -39,13 +40,13 @@ namespace Proyecto_ClubDeportes.Controllers
 
             return View(sport);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         // GET: Sport/Create
         public IActionResult Create()
         {
             return View();
         }
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         // POST: Sport/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -58,8 +59,9 @@ namespace Proyecto_ClubDeportes.Controllers
             }
             return View(sport);
         }
-        [Authorize]
+      
         // GET: Sport/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
             var sport = await _sportService.GetById(id);
@@ -69,10 +71,11 @@ namespace Proyecto_ClubDeportes.Controllers
             }
             return View(sport);
         }
-        [Authorize]
+       
         // POST: Sport/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Activity,Price,Description")] Sport sport)
         {
             if (id != sport.Id)
@@ -101,8 +104,9 @@ namespace Proyecto_ClubDeportes.Controllers
             }
             return View(sport);
         }
-        [Authorize]
+ 
         // GET: Sport/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             var sport = await _sportService.GetById(id);
@@ -113,8 +117,9 @@ namespace Proyecto_ClubDeportes.Controllers
 
             return View(sport);
         }
-        [Authorize]
+     
         // POST: Sport/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

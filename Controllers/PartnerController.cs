@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_ClubDeportes.Models;
 using Proyecto_ClubDeportes.Services;
@@ -12,7 +7,7 @@ using Proyecto_ClubDeportes.ViewModels;
 
 namespace Proyecto_ClubDeportes.Controllers
 {
-    [Authorize(Roles = "Secretaria, Administrador")]
+    
     public class PartnerController : Controller
     {
         private readonly IPartnerService _partnerService;
@@ -21,7 +16,7 @@ namespace Proyecto_ClubDeportes.Controllers
         {
             _partnerService = partnerService;
         }
-
+        [Authorize(Roles = "Socio, Secretaria, Administrador")]
         // GET: Partner
         public async Task<IActionResult> Index(string filter)
         {
@@ -34,6 +29,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // GET: Partner/Details/5
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> Details(int? id)
         {
             var partner = await _partnerService.GetById(id);
@@ -47,6 +43,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // GET: Partner/Create
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> Create()
         {
             var sportList = await _partnerService.GetSports();
@@ -64,6 +61,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // POST: Partner/Create
+        [Authorize(Roles = "Secretaria, Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Years,Gender,NumberPhone,Email,Address,SportIds")] PartnerCreateViewModel partner)
@@ -90,6 +88,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // GET: Partner/Edit/5
+        [Authorize(Roles = "Secretaria, Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
             var partner = await _partnerService.GetById(id);
@@ -123,6 +122,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // POST: Partner/Edit/5
+        [Authorize(Roles = "Secretaria, Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Years,Gender,NumberPhone,Email,Address,SportIds")] PartnerCreateViewModel partner)
@@ -187,6 +187,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // GET: Partner/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             var partner = await _partnerService.GetById(id);
@@ -199,6 +200,7 @@ namespace Proyecto_ClubDeportes.Controllers
         }
 
         // POST: Partner/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
