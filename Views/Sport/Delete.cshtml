@@ -1,0 +1,37 @@
+@model Proyecto_ClubDeportes.Models.Sport
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Deporte a Eliminar</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Activity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Activity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Volver a Lista de Deportes</a>
+    </form>
+</div>

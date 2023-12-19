@@ -1,0 +1,70 @@
+@using Proyecto_ClubDeportes.ViewModels;
+
+@model List<IncomeRecordViewModel>;
+
+@{
+    ViewData["Title"] = "Index";
+    var filter = ViewData["Filter"] as string;
+    var membershipfee = ViewData["MembershipFee"];
+}
+
+<h1>Registros De Pagos</h1>
+<lavel class="col-md-2 text-bold">Valor de Cuota Social: $@membershipfee</lavel>    <a asp-action="EditMembership" asp-controller="IncomeRecord" class="btn btn-primary">Editar Cuota Social</a>
+<br>
+<div class="button-container">
+<form asp-action="GetAllRecordsPayments" method="post">
+    <button type="submit" class="btn btn-success">Registros de Pagos</button>
+</form>
+<form asp-action="Index" method="post">
+    <button type="submit" class="btn btn-danger">Registros con Deuda</button>
+</form>
+</div>
+<br>
+<form method="get" asp-action="GetAllRecordsPayments" asp-controller="IncomeRecord">
+    <input name="Filter" class="form-group col-md-3" value="@filter" placeholder="Busqueda por nombre y deporte">
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].PartnerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Sports)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].MembershipFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartnerName)
+            </td>
+            <td>
+                @foreach (var sport in item.Sports)
+                {
+                    <p>@sport.Activity - @sport.Price</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MembershipFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('¿Estás seguro de que deseas eliminar este socio?')">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

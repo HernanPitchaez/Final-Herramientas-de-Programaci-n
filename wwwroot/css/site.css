@@ -1,0 +1,53 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.btn-margin-right {
+  margin-right: 50;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+h1 {
+  color: #361ebe;
+  margin-bottom: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+}
+
+th {
+          
+  font-weight: bold;
+  color: #361ebe;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+ body {
+  margin-bottom: 60px;
+  background-color: #ADD8E6;
+} 

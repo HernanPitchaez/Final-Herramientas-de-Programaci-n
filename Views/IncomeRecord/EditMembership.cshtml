@@ -1,0 +1,28 @@
+@using Proyecto_ClubDeportes.ViewModels;
+
+@model Membership
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditMembership">
+            <div class="form-group">
+                <label asp-for="membershipType"class="text-bold"></label>
+                <input asp-for="membershipType" class="form-control text-bold" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="text-bold"></label>
+                <input asp-for="Value" class="form-control" />
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+<br>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a Lista de Registros</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

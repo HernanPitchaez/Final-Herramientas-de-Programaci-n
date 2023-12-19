@@ -1,0 +1,64 @@
+@using Proyecto_ClubDeportes.ViewModels;
+
+@model PartnerViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Socios</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo Socio</a>
+</p>
+
+<form method="get" asp-action="Index" asp-controller="Partner">
+        <input asp-for="Filter" class="form-group col-md-3" placeholder="Busqueda por nombre o deporte">
+        <button class="btn btn-secondary" type="submit">Buscar</button>
+</form>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Partners[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Partners[0].NumberPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Partners[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Partners[0].Sports)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Partners) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @foreach (var sport in item.Sports)
+                {
+                    <p>@sport.Activity</p>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Datos Personales</a> |
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('¿Estás seguro de que deseas eliminar este socio?')">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
